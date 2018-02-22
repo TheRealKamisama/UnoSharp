@@ -57,7 +57,7 @@ namespace UnoSharp
         {
             var name = $"{Rng.Next()}";
             var filename = $@"data\image\{name}.jpg";
-            image.Resize(image.Width / 6, image.Height / 6).Save(filename);
+            image.Resize(image.Width / 3, image.Height / 3).Save(filename);
             
             return $"[CQ:image,file={name}.jpg]";
         }
@@ -85,6 +85,6 @@ namespace UnoSharp
             return destImage;
         }
 
-        public static 
+        
     }
 }

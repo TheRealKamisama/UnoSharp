@@ -16,7 +16,7 @@ namespace UnoSharp
         private Dictionary<string, Player> _playersDictionary = new Dictionary<string, Player>();
         private readonly Timer _timer = new Timer(10*1000);
         
-        public Card LastCard { get; internal set; }
+        public Card LastCard { get; set; } //TODO SET
         private GameStepBase _currentParser;
         public GamingState State { get; internal set; }
 
@@ -32,6 +32,10 @@ namespace UnoSharp
         public string DeskId { get; }
         public Player CurrentPlayer => PlayerList[_currentParser.CurrentIndex];
         public int OverlayCardNum { get; set; }
+        public bool Reversed => _currentParser.Reversed;
+        public Player LastSendPlayer { get; internal set; }
+        public Card LastNonDrawFourCard { get; internal set; }
+
 
         [MethodImpl(MethodImplOptions.Synchronized)]
         public bool AddPlayer(Player player)
@@ -56,7 +60,7 @@ namespace UnoSharp
 
         public Player GetPlayer(string playerid)
         {
-            return _playersDictionary.ContainsKey(playerid) ? _playersDictionary[playerid] : new Player(playerid);
+            return _playersDictionary.ContainsKey(playerid) ? _playersDictionary[playerid] : new Player(playerid, this);
         }
 
         public void RandomizePlayers()
@@ -75,13 +79,15 @@ namespace UnoSharp
             RandomizePlayers();
             LastCard = Card.Generate();
             _currentParser = new GamingParser();
-            PlayerList.ForEach(player =>
+
+            for (var index = 0; index < PlayerList.Count; index++)
             {
-                player.Cards.AddRange(Card.Generate(7));
-                player.Cards.Sort();
-                player.SendCardsMessage();
-            });
-            this.SendLastcardMessage();
+                var player = PlayerList[index];
+                player.AddCardsAndSort(7);
+                player.Index = index;
+            }
+
+            this.SendLastCardMessage();
         }
 
         public static Desk GetOrCreateDesk(string deskid)
@@ -101,7 +107,7 @@ namespace UnoSharp
 
         public void FinishGame(Player player)
         {
-            AddMessage($"{player.ToAtCode()}赢了!");
+            AddMessage($"{CurrentPlayer.AtCode}赢了!");
             Task.Run(() =>
             {
                 Thread.Sleep(500);
@@ -109,30 +115,36 @@ namespace UnoSharp
             });
         }
 
-        public string CurrentPlayerTag => $"P{_currentParser.CurrentIndex + 1}";
-        public string CurrentPlayerAtCode => $"{CurrentPlayerTag}{CurrentPlayer.ToAtCode()}";
-        public void SendLastcardMessage()
+        public void SendLastCardMessage()
         {
-            AddMessageLine($"上一张牌{Environment.NewLine}{LastCard.ToImage().ToImageCode()}");
-            AddMessage($"请{CurrentPlayerAtCode}出牌.");
+            AddMessageLine($"{this.RenderDesk().ToImageCode()}");
+            AddMessage($"请{CurrentPlayer.AtCode}出牌.");
         }
 
         public void ParseMessage(string playerid, string message)
         {
-            var player = GetPlayer(playerid);
-            _currentParser.Parse(this, player, message);
+            try
+            {
+                var player = GetPlayer(playerid);
+                _currentParser.Parse(this, player, message);
+            }
+            catch (Exception e)
+            {
+                AddMessage($"抱歉我们在处理你的命令时发生了错误{e}");
+            }
+            
         }
 
-        public void FinishDraw()
+        public void FinishDraw(Player player)
         {
-            if (State  == GamingState.WaitingDrawFourOverlay || State == GamingState.WaitingDrawTwoOverlay)
+            if (State  == GamingState.WaitingDrawFourOverlay || State == GamingState.WaitingDrawTwoOverlay || State == GamingState.Doubting)
             {
                 State = GamingState.Gaming;
-                AddMessage($"{CurrentPlayerAtCode}被加牌{OverlayCardNum}张.");
+                AddMessage($"{player.AtCode}被加牌{OverlayCardNum}张.");
 
-                CurrentPlayer.Cards.AddRange(Card.Generate(OverlayCardNum));
-                CurrentPlayer.Cards.Sort();
-                CurrentPlayer.SendCardsMessage();
+                player.AddCardsAndSort(OverlayCardNum);
+                OverlayCardNum = 0;
+                _currentParser.MoveNext(this);
             }
         }
     }
