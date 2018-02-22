@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7682B179-469F-4C66-987F-508BDBF19151}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>UnoSharp</RootNamespace>
+    <AssemblyName>UnoSharp</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Card.cs" />
+    <Compile Include="Desk.cs" />
+    <Compile Include="DeskRenderer.cs" />
+    <Compile Include="EmbedResourceReader.cs" />
+    <Compile Include="GameStep\GameStepBase.cs" />
+    <Compile Include="GameStep\GamingParser.cs" />
+    <Compile Include="GameStep\ICommandParser.cs" />
+    <Compile Include="GameComponent\IMessageSender.cs" />
+    <Compile Include="GameComponent\MessageSenderBase.cs" />
+    <Compile Include="GameStep\Samsara.cs" />
+    <Compile Include="GameStep\WaitingParser.cs" />
+    <Compile Include="ImageExtensions.cs" />
+    <Compile Include="ListExtensions.cs" />
+    <Compile Include="Player.cs" />
+    <Compile Include="PlayerExtensions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StringExtensions.cs" />
+    <Compile Include="UnoRule.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\Cards\MainCard.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Cards\Blue\DrawFour.png" />
+    <EmbeddedResource Include="Resources\Cards\Blue\DrawTwo.png" />
+    <EmbeddedResource Include="Resources\Cards\Blue\Eight.png" />
+    <EmbeddedResource Include="Resources\Cards\Blue\Five.png" />
+    <EmbeddedResource Include="Resources\Cards\Blue\Four.png" />
+    <EmbeddedResource Include="Resources\Cards\Blue\Nine.png" />
+    <EmbeddedResource Include="Resources\Cards\Blue\One.png" />
+    <EmbeddedResource Include="Resources\Cards\Blue\Reverse.png" />
+    <EmbeddedResource Include="Resources\Cards\Blue\Seven.png" />
+    <EmbeddedResource Include="Resources\Cards\Blue\Six.png" />
+    <EmbeddedResource Include="Resources\Cards\Blue\Skip.png" />
+    <EmbeddedResource Include="Resources\Cards\Blue\Three.png" />
+    <EmbeddedResource Include="Resources\Cards\Blue\Two.png" />
+    <EmbeddedResource Include="Resources\Cards\Blue\Wild.png" />
+    <EmbeddedResource Include="Resources\Cards\Blue\Zero.png" />
+    <EmbeddedResource Include="Resources\Cards\Wild\DrawFour.png" />
+    <EmbeddedResource Include="Resources\Cards\Wild\Wild.png" />
+    <EmbeddedResource Include="Resources\Cards\Green\DrawFour.png" />
+    <EmbeddedResource Include="Resources\Cards\Green\DrawTwo.png" />
+    <EmbeddedResource Include="Resources\Cards\Green\Eight.png" />
+    <EmbeddedResource Include="Resources\Cards\Green\Five.png" />
+    <EmbeddedResource Include="Resources\Cards\Green\Four.png" />
+    <EmbeddedResource Include="Resources\Cards\Green\Nine.png" />
+    <EmbeddedResource Include="Resources\Cards\Green\One.png" />
+    <EmbeddedResource Include="Resources\Cards\Green\Reverse.png" />
+    <EmbeddedResource Include="Resources\Cards\Green\Seven.png" />
+    <EmbeddedResource Include="Resources\Cards\Green\Six.png" />
+    <EmbeddedResource Include="Resources\Cards\Green\Skip.png" />
+    <EmbeddedResource Include="Resources\Cards\Green\Three.png" />
+    <EmbeddedResource Include="Resources\Cards\Green\Two.png" />
+    <EmbeddedResource Include="Resources\Cards\Green\Wild.png" />
+    <EmbeddedResource Include="Resources\Cards\Green\Zero.png" />
+    <EmbeddedResource Include="Resources\Cards\Red\DrawFour.png" />
+    <EmbeddedResource Include="Resources\Cards\Red\DrawTwo.png" />
+    <EmbeddedResource Include="Resources\Cards\Red\Eight.png" />
+    <EmbeddedResource Include="Resources\Cards\Red\Five.png" />
+    <EmbeddedResource Include="Resources\Cards\Red\Four.png" />
+    <EmbeddedResource Include="Resources\Cards\Red\Nine.png" />
+    <EmbeddedResource Include="Resources\Cards\Red\One.png" />
+    <EmbeddedResource Include="Resources\Cards\Red\Reverse.png" />
+    <EmbeddedResource Include="Resources\Cards\Red\Seven.png" />
+    <EmbeddedResource Include="Resources\Cards\Red\Six.png" />
+    <EmbeddedResource Include="Resources\Cards\Red\Skip.png" />
+    <EmbeddedResource Include="Resources\Cards\Red\Three.png" />
+    <EmbeddedResource Include="Resources\Cards\Red\Two.png" />
+    <EmbeddedResource Include="Resources\Cards\Red\Wild.png" />
+    <EmbeddedResource Include="Resources\Cards\Red\Zero.png" />
+    <EmbeddedResource Include="Resources\Cards\Yellow\DrawFour.png" />
+    <EmbeddedResource Include="Resources\Cards\Yellow\DrawTwo.png" />
+    <EmbeddedResource Include="Resources\Cards\Yellow\Eight.png" />
+    <EmbeddedResource Include="Resources\Cards\Yellow\Five.png" />
+    <EmbeddedResource Include="Resources\Cards\Yellow\Four.png" />
+    <EmbeddedResource Include="Resources\Cards\Yellow\Nine.png" />
+    <EmbeddedResource Include="Resources\Cards\Yellow\One.png" />
+    <EmbeddedResource Include="Resources\Cards\Yellow\Reverse.png" />
+    <EmbeddedResource Include="Resources\Cards\Yellow\Seven.png" />
+    <EmbeddedResource Include="Resources\Cards\Yellow\Six.png" />
+    <EmbeddedResource Include="Resources\Cards\Yellow\Skip.png" />
+    <EmbeddedResource Include="Resources\Cards\Yellow\Three.png" />
+    <EmbeddedResource Include="Resources\Cards\Yellow\Two.png" />
+    <EmbeddedResource Include="Resources\Cards\Yellow\Wild.png" />
+    <EmbeddedResource Include="Resources\Cards\Yellow\Zero.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
