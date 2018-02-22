@@ -8,8 +8,8 @@ namespace UnoSharp.GameStep
 {
     public class Samsara
     {
-        public int CurrentIndex { get; protected set; }
-        protected bool Reversed { get; set; }
+        public int CurrentIndex { get; internal set; }
+        public bool Reversed { get; protected set; }
 
         protected bool IsValidPlayer(Desk desk, Player player)
         {
@@ -18,12 +18,14 @@ namespace UnoSharp.GameStep
             return desk.Players.ToList().FindIndex(p => p == player) == CurrentIndex;
         }
 
+        
+
         public void Reverse()
         {
             Reversed = !Reversed;
         }
 
-        protected virtual void MoveNext(Desk desk)
+        internal virtual void MoveNext(Desk desk)
         {
             if (Reversed)
             {

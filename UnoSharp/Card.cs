@@ -175,7 +175,7 @@ namespace UnoSharp
             return 15 * (int) card.Color + card.ValueNumber;
         }
 
-        private static Image GetMainCard()
+        public static Image GetMainCard()
         {
             var path = $"UnoSharp.Resources.Cards.MainCard.png";
             var content = EmbedResourceReader.GetStream(path);
@@ -230,6 +230,21 @@ namespace UnoSharp
             return sb.ToString();
         }
 
+        public static bool ContainsType(this IEnumerable<Card> cards, CardType type)
+        {
+            return cards.Any(card => card.Type == type);
+        }
+
+        public static bool ContainsColor(this IEnumerable<Card> cards, CardColor color)
+        {
+            return cards.Any(card => card.Color == color);
+        }
+
+        public static bool ContainsValue(this IEnumerable<Card> cards, CardValue value)
+        {
+            return cards.Any(card => card.Value == value);
+        }
+
         public static bool IsValidForPlayerAndRemove(this Card card, Player player)
         {
             for (var index = 0; index < player.Cards.Count; index++)
@@ -262,8 +277,7 @@ namespace UnoSharp
 
             return false;
         }
-
-
+        
     }
     public enum CardColor
     {

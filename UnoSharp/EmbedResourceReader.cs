@@ -18,7 +18,7 @@ namespace UnoSharp
 
         public static Stream GetStream(string name)
         {
-            var currentAssembly = Assembly.GetCallingAssembly();
+            var currentAssembly = Assembly.GetExecutingAssembly();
             return currentAssembly.GetManifestResourceStream(name);
         }
     }
